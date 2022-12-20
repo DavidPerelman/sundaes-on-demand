@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  // Handles a GET /user request
+  // Handles a GET /scoops request
   rest.get('http://localhost:3030/scoops', (req, res, ctx) => {
     return res(
       ctx.json([
