@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import SummaryForm from '../SummaryForm';
 
-test('initial conditions', () => {
+test('Initial conditions', () => {
   render(<SummaryForm />);
 
   const checkbox = screen.getByRole('checkbox', {
@@ -14,17 +14,17 @@ test('initial conditions', () => {
   expect(confirmButton).toBeDisabled();
 });
 
-test('initial', () => {
+test('Checkbox enabled on first click and disabled on second click', () => {
   render(<SummaryForm />);
 
-  const button = screen.getByRole('button', { name: 'Confirm order' });
+  const confirmButton = screen.getByRole('button', { name: /confirm order/i });
   const checkbox = screen.getByRole('checkbox', {
-    name: 'I agree to Terms and Conditions',
+    name: /terms and conditions/i,
   });
 
   fireEvent.click(checkbox);
-  expect(button).not.toBeDisabled();
+  expect(confirmButton).toBeEnabled();
 
   fireEvent.click(checkbox);
-  expect(button).toBeDisabled();
+  expect(confirmButton).toBeDisabled();
 });
