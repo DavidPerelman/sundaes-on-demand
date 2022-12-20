@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ScoopOption = () => {
+const ScoopOption = ({ name, imagePath }) => {
   return <div>ScoopOption</div>;
 };
 
