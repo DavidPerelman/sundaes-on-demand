@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { pricePerItem } from '../constants';
 
 const OrderDetails = createContext();
 
@@ -36,6 +37,23 @@ export const OrderDetailsProvider = (props) => {
     setOptionCounts({ scoops: {}, toppings: {} });
   };
 
-  const value = { optionCounts, updateItemCount, resetOrder };
+  //  utility finction to derive totals from optionCounts state value
+  const calculateTotal = (optionType) => {
+    // get an array of counts for the option type
+    const countsArray = Object.values(optionCounts[optionType]);
+
+    // total the values in the array of counts for the number of items
+    const totalCount = countsArray.reduce((total, value) => total + value, 0);
+
+    // multiply the total number of items by the price for this item type
+    return totalCount * pricePerItem[optionType];
+  };
+
+  const totals = {
+    scoops: calculateTotal('scoops'),
+    toppings: calculateTotal('toppings'),
+  };
+
+  const value = { optionCounts, updateItemCount, resetOrder, totals };
   return <OrderDetails.Provider value={value} {...props} />;
 };
