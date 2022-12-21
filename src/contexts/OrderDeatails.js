@@ -5,7 +5,7 @@ const OrderDetails = createContext();
 
 // create custom hook to check whether we're in a provider
 export const useOrderDetails = () => {
-  contextValue = useContext(OrderDetails);
+  const contextValue = useContext(OrderDetails);
 
   if (!contextValue) {
     throw new Error(
